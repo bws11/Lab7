@@ -1,6 +1,6 @@
 def fibonacci_iterative(n: int) -> int:
     if n <= 1:
-        return 0
+        return n
 
     numbers = [0, 1]
     for i in range(n - 2):
@@ -11,6 +11,6 @@ def fibonacci_iterative(n: int) -> int:
 
 def fibonacci_recursive(n: int) -> int:
     if n <= 1:
-        return 0
+        return n
 
     return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2)

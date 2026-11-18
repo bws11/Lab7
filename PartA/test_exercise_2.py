@@ -1,7 +1,7 @@
-import pytest, time
+import pytest
 from exercise_2 import fibonacci_iterative, fibonacci_recursive
 
-def fib_test():
+def test_fib():
     assert fibonacci_recursive(0) == 0
     assert fibonacci_iterative(0) == 0
 
@@ -20,18 +20,18 @@ def fib_test():
     assert fibonacci_recursive(15) == 610
     assert fibonacci_iterative(15) == 610
 
-
 pytest.main()
 
-start = time.perf_counter()
-fibonacci_iterative(40)
-end = time.perf_counter()
-print("Execution time (iterative):", end - start, "seconds")
 
-start = time.perf_counter()
-fibonacci_recursive(40)
-end = time.perf_counter()
-print("Execution time (recursive):", end - start, "seconds")
+#start = time.perf_counter()
+#fibonacci_iterative(40)
+#end = time.perf_counter()
+#print("Execution time (iterative):", end - start, "seconds")
+#
+#start = time.perf_counter()
+#fibonacci_recursive(40)
+#end = time.perf_counter()
+#print("Execution time (recursive):", end - start, "seconds")
 
 
 # (i = interative, r = recursive)
