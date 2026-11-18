@@ -122,7 +122,7 @@ def play_game(player: str) -> None:
         make_move(board, row, col, player)
         player = switch_player(player)
 
-    print("Game over!")
+    print("\nGame over!")
     if check_draw(board):
         print("It's a draw!")
     else:
