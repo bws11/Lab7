@@ -20,3 +20,4 @@ def display_primes(limit: int) -> list:
 print(display_primes(25))
 
 # my solution reduced the number of operations by using modulus to tell if a number is even divisible before trying its multiplication table
+# the time complexity is O(n^2)
