@@ -13,18 +13,19 @@ def display_board(board: list) -> None:
     """Prints the board in current state"""
     for i in range(len(board)):
         # Add a column between each record
-        print("|".join(board[i]))
+        print("ǀ".join(board[i])) # using a "Latin letter dental click" because i thought the pipe looked too tall
 
         # Seperator between rows
         if i + 1 != len(board):
-            print("-+-+-")
+            print("—+—+—") # em dashes to hide the gaps between symbols
 
 
 def get_player_move(player: str) -> tuple[int, int]:
+    """Ask the user for their move"""
     try:
-        row = int(input("Enter the row of your move: "))
-        column = int(input("Enter the column of your move: "))
-    except TypeError:
+        row = int(input(f"({player}) Enter the row of your move: "))
+        column = int(input(f"({player}) Enter the column of your move: "))
+    except TypeError, ValueError:
         print("Please enter an integer")
         row, column = get_player_move(player)
 
@@ -37,8 +38,9 @@ def is_valid_move(board: list, row: int, col: int) -> bool:
         return False
     
     try:
-        board[row][col] = " "
-        return True
+        if board[row][col] == " ":
+            return True
+        return False
     except IndexError:
         return False
 
@@ -98,27 +100,58 @@ def check_draw(board: str) -> bool:
 
 
 def switch_player(player: str) -> str:
+    """Swaps the players so both people get to play"""
     return "O" if player == "X" else "X"
 
 
 def play_game(player: str) -> None:
+    """Start the game and play untill someone wins or there is a tie"""
     board = create_board()
-    player = ""
+
     while check_winner(board, "O") == False and check_winner(board, "X") == False and check_draw(board) == False:
-        display_board()
+        print() # empty space
+        display_board(board)
+
+        while True:
+            row, col = get_player_move(player)
+            if is_valid_move(board, row, col):
+                break
+            else:
+                print("Please enter a valid move")
+                
+        make_move(board, row, col, player)
+        player = switch_player(player)
+
+    print("Game over!")
+    if check_draw(board):
+        print("It's a draw!")
+    else:
+        print(f"{player} wins!")
 
 
 def main():
-    print("Welcome to naughts and crosses")
+    """Main wrapper for the game"""
+    print(
+        "Welcome to naughts and crosses"
+        "\nGet 3 in a row of the same type to win!"
+        "\nWe use co-ordinates to place symbols (top left is 0,0 and bottom right is 2,2)"
+    )
 
     while True:
-        player = input("Enter the player to go first: ")
-        if player.lower() == "o" or player.lower() == "x":
+        player = input("Who should go first (X or O)? ").upper()
+        if player == "O" or player == "X":
             break
         else:
             print("Please enter either 'O' or 'X'")
     
     play_game(player)
+        
+    new_game_choice = input("\nWould you like to play a new game (y/n)? ").lower()
+    if new_game_choice == 'y':
+        main()
+    else:
+        print("Bye!")
+
 
 if __name__ == '__main__':
-    display_board(create_board())
+    main()
