@@ -131,6 +131,7 @@ def play_game(player: str) -> None:
 
 def main():
     """Main wrapper for the game"""
+    
     print(
         "Welcome to naughts and crosses"
         "\nGet 3 in a row of the same type to win!"
